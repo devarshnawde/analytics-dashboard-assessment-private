@@ -1,11 +1,11 @@
 import React from 'react'
-import SimpleChart from './components/SimpleChart'
+import ModernDashboard from './components/ModernDashboard'
 import './App.css'
 
 function App() {
   return (
     <div className="App">
-      <SimpleChart />
+      <ModernDashboard />
     </div>
   )
 }
