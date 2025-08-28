@@ -1,11 +1,11 @@
 import React from 'react'
-import ModernDashboard from './components/ModernDashboard'
+import EVDashboard from './components/EVDashboard'
 import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <ModernDashboard />
+    <div className="px-2 h-screen">
+      <EVDashboard />
     </div>
   )
 }
