@@ -65,7 +65,7 @@ const KeyInsightsCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % insights.length);
-    }, 4000); // Change every 4 seconds
+    }, 1000); // Change every 4 seconds
 
     return () => clearInterval(interval);
   }, [insights.length]);
@@ -84,7 +84,7 @@ const KeyInsightsCarousel = () => {
   };
 
   return (
-    <div className="flex items-center gap-3 text-sm text-gray-600">
+    <div className="flex flex-col items-center gap-3 text-sm text-gray-600">
       <div className="flex items-center gap-2">
         <div className={`inline-flex p-1.5 rounded-md ${insights[currentIndex].bgColor}`}>
           {React.createElement(insights[currentIndex].icon, { className: "h-4 w-4 text-white" })}

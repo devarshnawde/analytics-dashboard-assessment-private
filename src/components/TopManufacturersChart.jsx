@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+  PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
 import Papa from 'papaparse';
 
@@ -108,11 +108,13 @@ const TopManufacturersChart = () => {
         .map(([make, count]) => ({
           make: make || 'Unknown',
           count: count || 0,
-          percentage: filtered.length > 0 ? ((count / filtered.length) * 100).toFixed(1) : '0'
+          percentage: filtered.length > 0 ? ((count / filtered.length) * 100).toFixed(1) : '0',
+          name: make || 'Unknown',
+          value: count || 0
         }))
         .filter(item => item.count > 0) // Only show manufacturers with vehicles
         .sort((a, b) => b.count - a.count)
-        .slice(0, 10); // Show top 10 manufacturers for better readability
+        .slice(0, 8); // Show top 8 manufacturers for better readability
 
       console.log('Filtered data:', { 
         selectedYear, 
@@ -134,17 +136,20 @@ const TopManufacturersChart = () => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="glass-card p-4 shadow-lg border border-gray-200">
-          <p className="font-semibold text-gray-900 mb-3 text-center">{data.make}</p>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">
-                Vehicles: {data.count.toLocaleString()}
-              </span>
-            </div>
-            <p className="text-sm text-gray-600">
-              Market Share: {data.percentage}%
-            </p>
+        <div className="bg-white p-4 shadow-lg border border-gray-200 rounded-lg">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-4 h-4 rounded-full" style={{ backgroundColor: data.color }}></div>
+            <p className="font-semibold text-gray-900">{data.make}</p>
+          </div>
+          <div className="space-y-2 text-sm">
+                         <div className="flex justify-between">
+               <span className="text-gray-600">Vehicles:</span>
+               <span className="font-semibold">{data.count?.toLocaleString() || '0'}</span>
+             </div>
+             <div className="flex justify-between">
+               <span className="text-gray-600">Market Share:</span>
+               <span className="font-medium text-blue-600">{data.percentage || '0'}%</span>
+             </div>
           </div>
         </div>
       );
@@ -176,15 +181,15 @@ const TopManufacturersChart = () => {
 
   return (
     <div className="space-y-4">
-      {/* Simple Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 bg-gray-50 rounded-lg">
+      {/* Enhanced Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-3 bg-gradient-to-r from-gray-50/80 to-gray-100/60 rounded-lg border border-gray-200/50">
         {/* Year Filter */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Year</label>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Year</label>
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
-            className="px-3 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary bg-white"
+            className="chart-filter min-w-[120px]"
           >
             <option value="All">All Years</option>
             {availableYears.map(year => (
@@ -194,8 +199,8 @@ const TopManufacturersChart = () => {
         </div>
 
         {/* Vehicle Type Filter */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Vehicle Type</label>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Vehicle Type</label>
           <div className="flex gap-1">
             {[
               { key: 'All', label: 'All' },
@@ -205,10 +210,10 @@ const TopManufacturersChart = () => {
               <button
                 key={type.key}
                 onClick={() => setVehicleType(type.key)}
-                className={`px-3 py-1 text-sm rounded transition-colors ${
+                className={`px-3 py-1.5 text-xs rounded-md font-medium transition-all ${
                   vehicleType === type.key
-                    ? 'bg-primary text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                    ? 'bg-blue-600 text-white shadow-sm border border-blue-600'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 hover:border-gray-400'
                 }`}
               >
                 {type.label}
@@ -228,36 +233,53 @@ const TopManufacturersChart = () => {
         </div>
       ) : filteredData && filteredData.length > 0 ? (
         <div className="space-y-4">
-          {/* Debug Info */}
-          <div className="text-xs text-gray-500 p-2 bg-gray-100 rounded">
-            Debug: {filteredData.length} manufacturers, Total vehicles: {filteredData.reduce((sum, item) => sum + item.count, 0).toLocaleString()}
-          </div>
-          
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={filteredData} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
-              <XAxis 
-                dataKey="make" 
-                type="category" 
-                stroke="#6b7280"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                angle={-45}
-                textAnchor="end"
-                height={80}
-              />
-              <YAxis 
-                type="number" 
-                stroke="#6b7280"
-                tick={{ fontSize: 12, fill: '#6b7280' }}
-              />
+          {/* Chart */}
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={filteredData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={100}
+                paddingAngle={2}
+                dataKey="value"
+                                 label={({ name, percentage }) => `${name} ${percentage || 0}%`}
+                labelLine={false}
+              >
+                {filteredData.map((entry, index) => (
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={['#f59e0b', '#6b7280', '#d97706', '#3b82f6', '#8b5cf6', '#10b981', '#ef4444', '#06b6d4'][index % 8]} 
+                  />
+                ))}
+              </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Bar 
-                dataKey="count" 
-                fill="#10b981"
-                radius={[6, 6, 0, 0]}
+              <Legend 
+                verticalAlign="bottom" 
+                height={36}
+                formatter={(value, entry) => (
+                  <span className="text-xs text-gray-700">{value}</span>
+                )}
               />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
+
+          {/* Top 3 Manufacturers with Stats */}
+          <div className="grid grid-cols-3 gap-3">
+            {filteredData.slice(0, 3).map((manufacturer, index) => (
+              <div key={manufacturer.make} className="text-center p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                <div className={`w-3 h-3 rounded-full mx-auto mb-2 ${
+                  index === 0 ? 'bg-yellow-500' : 
+                  index === 1 ? 'bg-gray-400' : 
+                  'bg-amber-600'
+                }`}></div>
+                <div className="text-sm font-semibold text-gray-800 truncate">{manufacturer.make}</div>
+                                 <div className="text-lg font-bold text-blue-600">{manufacturer.count?.toLocaleString() || '0'}</div>
+                 <div className="text-xs text-gray-600">{manufacturer.percentage || '0'}% market share</div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
@@ -269,7 +291,7 @@ const TopManufacturersChart = () => {
       )}
 
       {/* Summary Stats */}
-      {!filterLoading && filteredData && filteredData.length > 0 && (
+      {/* {!filterLoading && filteredData && filteredData.length > 0 && (
         <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
           <div className="text-center">
             <div className="text-2xl font-bold text-primary">
@@ -290,7 +312,7 @@ const TopManufacturersChart = () => {
             <div className="text-sm text-gray-600">Top Manufacturer</div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
