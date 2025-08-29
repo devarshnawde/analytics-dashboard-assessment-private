@@ -2,25 +2,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Design System Color Palette */
-  --primary: 180 75% 35%;
-  --primary-light: 180 65% 90%;
+  /* Brand Colors - EV Theme */
+  --primary: 180 75% 35%;        /* Teal */
   --primary-foreground: 0 0% 100%;
+  --primary-light: 180 65% 90%;
   
-  --secondary: 220 70% 55%;
-  --secondary-light: 220 60% 95%;
+  --secondary: 220 70% 55%;      /* Indigo */
   --secondary-foreground: 0 0% 100%;
+  --secondary-light: 220 60% 95%;
   
-  --accent-amber: 45 95% 55%;
+  --accent-amber: 45 95% 55%;    /* Amber */
   --accent-amber-light: 45 85% 95%;
-  --accent-emerald: 155 70% 45%;
+  
+  --accent-emerald: 155 70% 45%; /* Emerald */
   --accent-emerald-light: 155 60% 95%;
   
-  --background: 210 20% 98%;
-  --foreground: 215 25% 15%;
+  /* Neutral Palette */
   --muted: 210 20% 95%;
   --muted-foreground: 215 15% 45%;
   --border: 210 25% 88%;
+  --input: 210 25% 92%;
+  
+  /* Interactive States */
+  --ring: 180 75% 35%;
+  --destructive: 0 75% 55%;
+  --destructive-foreground: 0 0% 100%;
+  
+  /* Glass Cards */
+  --card: 0 0% 100%;
+  --card-foreground: 215 25% 15%;
+  --glass-bg: 0 0% 100% / 0.8;
+  --glass-border: 210 30% 85%;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(180 75% 35%), hsl(180 85% 45%));
+  --gradient-secondary: linear-gradient(135deg, hsl(220 70% 55%), hsl(220 80% 65%));
+  --gradient-amber: linear-gradient(135deg, hsl(45 95% 55%), hsl(45 100% 65%));
+  --gradient-emerald: linear-gradient(135deg, hsl(155 70% 45%), hsl(155 80% 55%));
+  --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(210 30% 98% / 0.7));
+  
+  /* Shadows */
+  --shadow-glass: 0 8px 32px -8px hsl(210 30% 50% / 0.15);
+  --shadow-card: 0 4px 16px -4px hsl(210 30% 50% / 0.1);
+  --shadow-hover: 0 12px 40px -8px hsl(210 30% 50% / 0.2);
+  
+  /* Border Radius */
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+
+  /* Sidebar Colors */
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+
+  /* Background and Foreground */
+  --background: 210 20% 98%;
+  --foreground: 215 25% 15%;
 
   /* Typography */
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -35,56 +77,6 @@
   color-scheme: light;
   color: hsl(var(--foreground));
   background-color: hsl(var(--background));
-
-   
-    /* Neutral Palette */
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 15% 45%;
-    --border: 210 25% 88%;
-    --input: 210 25% 92%;
-    
-    /* Interactive States */
-    --ring: 180 75% 35%;
-    --destructive: 0 75% 55%;
-    --destructive-foreground: 0 0% 100%;
-
-        /* Glass Cards */
-        --card: 0 0% 100%;
-        --card-foreground: 215 25% 15%;
-        --glass-bg: 0 0% 100% / 0.8;
-        --glass-border: 210 30% 85%;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(180 75% 35%), hsl(180 85% 45%));
-    --gradient-secondary: linear-gradient(135deg, hsl(220 70% 55%), hsl(220 80% 65%));
-    --gradient-amber: linear-gradient(135deg, hsl(45 95% 55%), hsl(45 100% 65%));
-    --gradient-emerald: linear-gradient(135deg, hsl(155 70% 45%), hsl(155 80% 55%));
-    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(210 30% 98% / 0.7));
-    
-    /* Shadows */
-    --shadow-glass: 0 8px 32px -8px hsl(210 30% 50% / 0.15);
-    --shadow-card: 0 4px 16px -4px hsl(210 30% 50% / 0.1);
-    --shadow-hover: 0 12px 40px -8px hsl(210 30% 50% / 0.2);
-    
-    /* Border Radius */
-    --radius: 1rem;
-    --radius-lg: 1.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
 }
 
 /* Glassmorphism Effects */
@@ -146,16 +138,15 @@
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid hsl(210 30% 85%);
   backdrop-filter: blur(8px);
-  border-radius: 1rem;
-  box-shadow: 0 8px 32px -8px hsl(210 30% 50% / 0.15);
-  padding: 1.5rem;
-  text-align: center;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px -4px hsl(210 30% 50% / 0.1);
   transition: all 0.3s ease;
+  min-height: 60px;
 }
 
 .kpi-card:hover {
-  box-shadow: 0 12px 40px -8px hsl(210 30% 50% / 0.2);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px hsl(210 30% 50% / 0.15);
+  transform: translateY(-1px);
 }
 /* Interactive Elements */
 button {
@@ -250,4 +241,50 @@ button:focus-visible {
 
 .border-border {
   border-color: hsl(var(--border));
+}
+
+/* Custom gradient utilities */
+.bg-gradient-to-br {
+  background: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-primary-light {
+  --tw-gradient-from: hsl(var(--primary-light));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
+.from-secondary-light {
+  --tw-gradient-from: hsl(var(--secondary-light));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
+.from-accent-amber-light {
+  --tw-gradient-from: hsl(var(--accent-amber-light));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
+.from-accent-emerald-light {
+  --tw-gradient-from: hsl(var(--accent-emerald-light));
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
+.to-white\/80 {
+  --tw-gradient-to: rgba(255, 255, 255, 0.8);
+}
+
+/* Border utilities */
+.border-primary\/20 {
+  border-color: hsl(var(--primary) / 0.2);
+}
+
+.border-secondary\/20 {
+  border-color: hsl(var(--secondary) / 0.2);
+}
+
+.border-accent-amber\/20 {
+  border-color: hsl(var(--accent-amber) / 0.2);
+}
+
+.border-accent-emerald\/20 {
+  border-color: hsl(var(--accent-emerald) / 0.2);
 }

@@ -91,11 +91,11 @@ const EVDashboard = () => {
             <h2 className="text-lg font-semibold text-gray-900">Key Performance Indicators</h2>
             <KeyInsightsCarousel />
           </div>
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {kpiData.map((kpi, index) => (
               <KpiCard key={index} {...kpi} />
             ))}
-          </div> */}
+          </div>
         </section>
 
         {/* Charts Grid */}

@@ -13,7 +13,7 @@ const KpiCard = ({ title, value, icon: Icon, trend, variant = 'primary' }) => {
       case 'emerald':
         return 'border-accent-emerald/20 bg-gradient-to-br from-accent-emerald-light to-white/80';
       default:
-        return 'border-primary/20 bg-gradient-to-br from-primary-light to-white/80';
+        return 'border-accent-emerald/20 bg-gradient-to-br from-accent-emerald-light to-white/80';
     }
   };
 
@@ -33,24 +33,24 @@ const KpiCard = ({ title, value, icon: Icon, trend, variant = 'primary' }) => {
   };
 
   return (
-    <div className={`glass-card glass-card-hover p-4 ${getVariantClasses()}`}>
-      <div className="flex items-center justify-center mb-2">
-        <div className={`p-2 rounded-full bg-white/50 ${getIconColor()}`}>
-          <Icon size={20} />
+    <div className={`kpi-card p-3 ${getVariantClasses()}`}>
+      <div className="flex items-center gap-3">
+        <div className={`p-1.5 rounded-lg bg-white/60 ${getIconColor()}`}>
+          <Icon size={16} />
         </div>
-      </div>
-      
-      <div className="space-y-1">
-        <p className="text-xl font-bold text-gray-900">{value}</p>
-        <p className="text-xs font-medium text-gray-600">{title}</p>
         
-        {trend && (
-          <div className={`flex items-center justify-center text-xs ${
-            trend.isPositive ? 'text-emerald-600' : 'text-red-500'
-          }`}>
-            <span>{trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%</span>
-          </div>
-        )}
+        <div className="flex-1 min-w-0">
+          <p className="text-lg font-bold text-gray-900 leading-tight">{value}</p>
+          <p className="text-xs font-medium text-gray-600 truncate">{title}</p>
+          
+          {trend && (
+            <div className={`flex items-center text-xs mt-0.5 ${
+              trend.isPositive ? 'text-emerald-600' : 'text-red-500'
+            }`}>
+              <span className="font-medium">{trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
