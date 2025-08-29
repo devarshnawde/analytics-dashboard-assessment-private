@@ -157,15 +157,15 @@ const MarketShareChart = () => {
 
   return (
     <div className="space-y-4">
-      {/* Simple Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 bg-gray-50 rounded-lg">
+      {/* Enhanced Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-3 bg-gradient-to-r from-gray-50/80 to-gray-100/60 rounded-lg border border-gray-200/50">
         {/* Year Filter */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Year</label>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Year</label>
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
-            className="px-3 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary bg-white"
+            className="chart-filter min-w-[120px]"
           >
             <option value="All">All Years</option>
             {availableYears.map(year => (
@@ -175,12 +175,12 @@ const MarketShareChart = () => {
         </div>
 
         {/* County Filter */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">County</label>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide">County</label>
           <select
             value={selectedCounty}
             onChange={(e) => setSelectedCounty(e.target.value)}
-            className="px-3 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary bg-white"
+            className="chart-filter min-w-[140px]"
           >
             <option value="All">All Counties</option>
             {availableCounties.map(county => (
@@ -225,22 +225,7 @@ const MarketShareChart = () => {
         </ResponsiveContainer>
       )}
 
-      {/* Summary Stats */}
-      {!filterLoading && filteredData && filteredData.length > 0 && (
-        <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
-          {filteredData.map((item, index) => (
-            <div key={index} className="text-center">
-              <div className="text-2xl font-bold" style={{ color: item.color }}>
-                {item.percentage}%
-              </div>
-              <div className="text-sm text-gray-600">{item.name}</div>
-              <div className="text-xs text-gray-500">
-                {item.value ? item.value.toLocaleString() : '0'} vehicles
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+
     </div>
   );
 };
