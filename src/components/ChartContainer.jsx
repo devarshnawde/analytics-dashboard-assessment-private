@@ -3,7 +3,7 @@ import React from 'react';
 const ChartContainer = ({ title, description, children, filters }) => {
   return (
     <div className="chart-container">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
           {description && (
@@ -11,7 +11,7 @@ const ChartContainer = ({ title, description, children, filters }) => {
           )}
         </div>
         {filters && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {filters}
           </div>
         )}
