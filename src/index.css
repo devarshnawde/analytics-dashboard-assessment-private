@@ -125,12 +125,36 @@
 
 /* Chart Containers */
 .chart-container {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid hsl(210 30% 85%);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  backdrop-filter: blur(12px);
   border-radius: 1rem;
-  box-shadow: 0 8px 32px -8px hsl(210 30% 50% / 0.15);
-  padding: 1.5rem;
+  box-shadow: 
+    0 4px 16px -4px rgba(148, 163, 184, 0.1),
+    0 1px 3px 0 rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.1), transparent);
+}
+
+.chart-container:hover {
+  box-shadow: 
+    0 8px 24px -4px rgba(148, 163, 184, 0.15),
+    0 2px 4px 0 rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
 }
 
 /* KPI Cards */
@@ -171,6 +195,43 @@ button:focus,
 button:focus-visible {
   outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
+}
+
+/* Enhanced Filter Styling */
+.chart-filter {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.8));
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  backdrop-filter: blur(8px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.chart-filter:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 250, 252, 0.95));
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+}
+
+.chart-filter:focus {
+  outline: 2px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 2px;
+}
+
+.chart-filter option {
+  background: white;
+  color: #374151;
+  padding: 0.5rem;
 }
 
 /* Smooth transitions */
