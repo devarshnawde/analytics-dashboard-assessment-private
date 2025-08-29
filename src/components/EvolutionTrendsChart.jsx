@@ -149,11 +149,11 @@ const EvolutionTrendsChart = () => {
 
   return (
     <div className="space-y-4">
-      {/* Simple Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 bg-gray-50 rounded-lg">
+      {/* Enhanced Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-3 bg-gradient-to-r from-gray-50/80 to-gray-100/60 rounded-lg border border-gray-200/50">
         {/* Year Range Filter */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Year Range</label>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Year Range</label>
           <div className="flex items-center gap-2">
             <input
               type="number"
@@ -164,9 +164,9 @@ const EvolutionTrendsChart = () => {
                 const value = parseInt(e.target.value) || 2010;
                 setYearRange([value, Math.max(value, yearRange[1])]);
               }}
-              className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary"
+              className="chart-filter w-20 text-center"
             />
-            <span className="text-gray-500">to</span>
+            <span className="text-gray-500 text-sm">to</span>
             <input
               type="number"
               min="2010"
@@ -176,14 +176,14 @@ const EvolutionTrendsChart = () => {
                 const value = parseInt(e.target.value) || 2024;
                 setYearRange([Math.min(yearRange[0], value), value]);
               }}
-              className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary"
+              className="chart-filter w-24 text-center"
             />
           </div>
         </div>
 
         {/* Vehicle Type Filter */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">Vehicle Type</label>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Vehicle Type</label>
           <div className="flex gap-1">
             {[
               { key: 'All', label: 'All' },
@@ -193,10 +193,10 @@ const EvolutionTrendsChart = () => {
               <button
                 key={type.key}
                 onClick={() => setVehicleType(type.key)}
-                className={`px-3 py-1 text-sm rounded transition-colors ${
+                className={`px-3 py-1.5 text-xs rounded-md font-medium transition-all ${
                   vehicleType === type.key
-                    ? 'bg-primary text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                    ? 'bg-blue-600 text-white shadow-sm border border-blue-600'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 hover:border-gray-400'
                 }`}
               >
                 {type.label}
