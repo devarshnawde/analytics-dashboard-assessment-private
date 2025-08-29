@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+  PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
 import Papa from 'papaparse';
 import { Zap, TrendingUp, Car, Award } from 'lucide-react';
@@ -158,12 +158,14 @@ const TopElectricProviders = () => {
     );
   }
 
-  // Prepare chart data
+  // Prepare chart data with colors
+  const COLORS = ['#f59e0b', '#6b7280', '#d97706', '#3b82f6', '#8b5cf6'];
+  
   const chartData = topProviders.map((provider, index) => ({
     ...provider,
-    // Add ranking colors
-    rank: index + 1,
-    color: index === 0 ? '#f59e0b' : index === 1 ? '#6b7280' : index === 2 ? '#d97706' : '#3b82f6'
+    name: provider.make,
+    value: provider.totalVehicles,
+    color: COLORS[index % COLORS.length]
   }));
 
   return (
@@ -179,41 +181,37 @@ const TopElectricProviders = () => {
         </div>
       </div>
 
-      {/* Chart */}
-      {chartData && chartData.length > 0 ? (
-        <div className="space-y-4">
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart 
-              data={chartData} 
-              margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-              barSize={35}
-              barGap={6}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
-              <XAxis 
-                dataKey="make" 
-                type="category"
-                stroke="#6b7280"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-                angle={-45}
-                textAnchor="end"
-                height={30}
-              />
-              <YAxis 
-                type="number"
-                stroke="#6b7280"
-                tick={{ fontSize: 11, fill: '#6b7280' }}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar 
-                dataKey="totalVehicles" 
-                fill="#10b981"
-                radius={[4, 4, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
+             {/* Chart */}
+       {chartData && chartData.length > 0 ? (
+         <div className="space-y-4">
+           <ResponsiveContainer width="100%" height={280}>
+             <PieChart>
+               <Pie
+                 data={chartData}
+                 cx="50%"
+                 cy="50%"
+                 labelLine={false}
+                 label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                 outerRadius={80}
+                 fill="#8884d8"
+                 dataKey="value"
+               >
+                 {chartData.map((entry, index) => (
+                   <Cell key={`cell-${index}`} fill={entry.color} />
+                 ))}
+               </Pie>
+               <Tooltip content={<CustomTooltip />} />
+               <Legend 
+                 verticalAlign="bottom" 
+                 height={36}
+                 formatter={(value, entry) => (
+                   <span className="text-xs text-gray-700">{value}</span>
+                 )}
+               />
+             </PieChart>
+           </ResponsiveContainer>
 
-        </div>
+         </div>
       ) : (
         <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
           <div className="text-center">
