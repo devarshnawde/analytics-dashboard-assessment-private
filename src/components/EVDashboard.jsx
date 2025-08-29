@@ -68,7 +68,7 @@ const EVDashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-8">
       {/* Header */}
       <header className="glass-card mx-4 mt-4 mb-6">
         <div className="px-6 py-4">

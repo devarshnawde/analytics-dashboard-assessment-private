@@ -151,8 +151,8 @@ const MileageAnalysisChart = () => {
 
   return (
     <div className="space-y-4">
-      {/* Simple Year Filter */}
-      <div className="flex gap-2 p-3 bg-gray-50 rounded-lg">
+      {/* Enhanced Year Filter */}
+      <div className="flex gap-2 p-4   bg-gradient-to-r from-blue-50/80 to-indigo-50/60 rounded-md border border-gray-200/50">
         {[
           { key: 'all', label: 'All Time' },
           { key: 'last10', label: 'Last 10 Years' },
@@ -161,10 +161,10 @@ const MileageAnalysisChart = () => {
           <button
             key={filter.key}
             onClick={() => setYearFilter(filter.key)}
-            className={`px-4 py-2 text-sm rounded transition-colors ${
+            className={`px-4 py-2 text-xs rounded-md font-medium transition-all ${
               yearFilter === filter.key
-                ? 'bg-primary text-white'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                ? 'bg-blue-600 text-white shadow-sm border border-blue-600'
+                : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300 hover:border-gray-400'
             }`}
           >
             {filter.label}
@@ -183,26 +183,31 @@ const MileageAnalysisChart = () => {
       ) : chartData && chartData.length > 0 ? (
         <div className="space-y-4">
           {/* Chart */}
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
-              <XAxis 
-                dataKey="label" 
-                stroke="#6b7280"
-                tick={{ fontSize: 12, fill: '#6b7280' }}
-              />
-              <YAxis 
-                stroke="#6b7280"
-                tick={{ fontSize: 12, fill: '#6b7280' }}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar 
-                dataKey="count" 
-                fill="#10b981"
-                radius={[4, 4, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
+                     <ResponsiveContainer width="100%" height={260}>
+             <BarChart 
+               data={chartData}
+               margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+               barSize={40}
+               barGap={8}
+             >
+               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
+               <XAxis 
+                 dataKey="label" 
+                 stroke="#6b7280"
+                 tick={{ fontSize: 11, fill: '#6b7280' }}
+               />
+               <YAxis 
+                 stroke="#6b7280"
+                 tick={{ fontSize: 11, fill: '#6b7280' }}
+               />
+               <Tooltip content={<CustomTooltip />} />
+               <Bar 
+                 dataKey="count" 
+                 fill="#059669"
+                 radius={[4, 4, 0, 0]}
+               />
+             </BarChart>
+           </ResponsiveContainer>
         </div>
       ) : (
         <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
@@ -213,29 +218,35 @@ const MileageAnalysisChart = () => {
         </div>
       )}
 
-      {/* Summary Stats */}
-      {!filterLoading && filteredData && filteredData.length > 0 && (
-        <div className="grid grid-cols-3 gap-4 p-3 bg-gray-50 rounded-lg">
-          <div className="text-center">
-            <div className="text-lg font-bold text-primary">
-              {filteredData.length.toLocaleString()}
-            </div>
-            <div className="text-xs text-gray-600">Total Vehicles</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-bold text-primary">
-              {Math.round(filteredData.reduce((sum, item) => sum + item.electricRange, 0) / filteredData.length)} mi
-            </div>
-            <div className="text-xs text-gray-600">Average Range</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-bold text-primary">
-              {Math.max(...filteredData.map(item => item.electricRange))} mi
-            </div>
-            <div className="text-xs text-gray-600">Max Range</div>
-          </div>
-        </div>
-      )}
+             {/* Compact Insight Cards */}
+       {!filterLoading && filteredData && filteredData.length > 0 && (
+         <div className="flex gap-2">
+           <div className="flex-1 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200/50 rounded-lg p-2">
+             <div className="flex items-center justify-around">
+               <div className="text-xs text-emerald-700 font-medium">Total EVs</div>
+               <div className="text-sm font-bold text-emerald-800">
+                 {filteredData.length.toLocaleString()}
+               </div>
+             </div>
+           </div>
+           <div className="flex-1 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/50 rounded-lg p-2">
+             <div className="flex items-center justify-around">
+               <div className="text-xs text-blue-700 font-medium">Avg Range</div>
+               <div className="text-sm font-bold text-blue-800">
+                 {Math.round(filteredData.reduce((sum, item) => sum + item.electricRange, 0) / filteredData.length)} mi
+               </div>
+             </div>
+           </div>
+           <div className="flex-1 bg-gradient-to-r from-purple-50 to-violet-50 border border-purple-200/50 rounded-lg p-2">
+             <div className="flex items-center justify-around">
+               <div className="text-xs text-purple-700 font-medium">Max Range</div>
+               <div className="text-sm font-bold text-purple-800">
+                 {Math.max(...filteredData.map(item => item.electricRange))} mi
+               </div>
+             </div>
+           </div>
+         </div>
+       )}
     </div>
   );
 };
