@@ -26,6 +26,11 @@ The Electric Vehicle Population dataset is available in the [Electric Vehicle Po
 - Deploy your frontend dashboard to a hosting platform of your choice.
 - Make sure the dashboard is publicly accessible.
 
+## Live Dashboard
+
+You can view the deployed dashboard here:  
+👉 [https://ev-dashboard-devarsh.vercel.app/](https://ev-dashboard-devarsh.vercel.app/)
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
