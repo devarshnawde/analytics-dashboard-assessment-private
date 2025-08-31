@@ -15,7 +15,6 @@ const SimpleChart = () => {
     try {
       setError(null);
       
-      // Load top 15 makes
       const makes = await getTop15Makes(setLoading);
       setTopMakes(makes);
       
