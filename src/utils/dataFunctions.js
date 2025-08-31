@@ -6,7 +6,7 @@ export async function getTop15Makes(setLoading) {
   
   try {
     // Fetch CSV data
-    const response = await fetch('/data-to-visualize/Electric_Vehicle_Population_Data.csv');
+    const response = await fetch('/Electric_Vehicle_Population_Data.csv');
     if (!response.ok) {
       throw new Error(`Failed to load CSV: ${response.statusText}`);
     }
@@ -47,7 +47,7 @@ export async function getTotalCount(setLoading) {
   if (setLoading) setLoading(true);
   
   try {
-    const response = await fetch('/data-to-visualize/Electric_Vehicle_Population_Data.csv');
+    const response = await fetch('/Electric_Vehicle_Population_Data.csv');
     if (!response.ok) {
       throw new Error(`Failed to load CSV: ${response.statusText}`);
     }

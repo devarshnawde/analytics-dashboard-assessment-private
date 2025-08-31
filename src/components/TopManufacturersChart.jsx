@@ -18,7 +18,7 @@ const TopManufacturersChart = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch('/data-to-visualize/Electric_Vehicle_Population_Data.csv');
+        const response = await fetch('/Electric_Vehicle_Population_Data.csv');
         if (!response.ok) {
           throw new Error(`Failed to load CSV: ${response.statusText}`);
         }
