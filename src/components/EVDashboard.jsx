@@ -22,11 +22,6 @@ const Card = ({ children, className = "", hover = false }) => (
 
 const EVDashboard = () => {
 
-
-
-
-
-
   const kpiData = [
     {
       title: "Global EV Sales",
